@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model medic_sessions {
+  id           Int          @id(map: "medic_sessions_pk") @default(autoincrement())
+  token        String
+  medic_id     Int
+  medics_users medics_users @relation(fields: [medic_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "medic_sessions_fk0")
+}
+
+model medics_users {
+  id             Int              @id(map: "medics_users_pk") @default(autoincrement())
+  email          String           @unique @db.VarChar
+  crm            Int
+  password       String
+  medic_sessions medic_sessions[]
+}
+
+model user_sessions {
+  id              Int             @id(map: "user_sessions_pk") @default(autoincrement())
+  token           String
+  customer_id     Int
+  users_customers users_customers @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_sessions_fk0")
+}
+
+model users_customers {
+  id            Int             @id(map: "users_customers_pk") @default(autoincrement())
+  email         String          @unique @db.VarChar
+  cpf           Int
+  password      String
+  user_sessions user_sessions[]
+}

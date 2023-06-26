@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "ES6",
     "module": "commonjs",
     "outDir": "dist",
+    "moduleResolution": "Node",
     "noImplicitAny": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -17,6 +18,9 @@
         "transform": "typescript-transform-paths"
       }
     ]
+  },
+  "ts-node": {
+    "esm": true
   },
   "include": ["src", "tests"]
 }
